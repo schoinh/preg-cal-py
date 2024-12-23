@@ -1,0 +1,3 @@
+*.ics
+__pycache__
+.sesskey
