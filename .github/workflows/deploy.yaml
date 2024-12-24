@@ -26,5 +26,4 @@ jobs:
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
-          docker save my-app:latest | gzip > my-app.tar.gz
           railway up --service=${{ secrets.RAILWAY_SERVICE_ID }}"
