@@ -1,5 +1,7 @@
 # preg-cal-py
 
+Currently deployed at: https://fabulous-rebirth-production.up.railway.app/
+
 Install poetry:
 
 ```
