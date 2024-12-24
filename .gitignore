@@ -1,3 +1,4 @@
 *.ics
 __pycache__
 .sesskey
+venv
