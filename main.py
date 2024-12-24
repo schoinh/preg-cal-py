@@ -2,6 +2,7 @@ from fasthtml.common import *
 from starlette.responses import FileResponse
 import datetime
 
+# Import your existing logic
 from preg_cal import format_date, get_week_bounds, get_week_events, create_event
 
 app, rt = fast_app()
@@ -11,51 +12,48 @@ app, rt = fast_app()
 def get():
     return Titled(
         "Pregnancy Calendar Generator",
-        Form(
-            Group(
-                Input(
-                    type="number",
-                    id="year",
-                    name="year",
-                    min="2024",
-                    max="2030",
-                    placeholder="Year (e.g. 2025)",
-                ),
-                Input(
-                    type="number",
-                    id="month",
-                    name="month",
-                    min="1",
-                    max="12",
-                    placeholder="Month (1-12)",
-                ),
-                Input(
-                    type="number",
-                    id="date",
-                    name="date",
-                    min="1",
-                    max="31",
-                    placeholder="Date (1-31)",
-                ),
-                Button("Generate Calendar", type="submit"),
+        Container(
+            P(
+                "Select your due date to generate a calendar with pregnancy week markers."
             ),
-            method="post",
-            action="/generate",
+            Div(
+                Form(
+                    Group(
+                        Input(
+                            type="date",
+                            id="due_date",
+                            name="due_date",
+                            min="2024-01-01",
+                            max="2030-12-31",
+                            required=True,
+                            cls="form-control",
+                        ),
+                        Button(
+                            "Generate",
+                            type="submit",
+                            cls="primary",
+                        ),
+                    ),
+                    method="post",
+                    action="/generate",
+                ),
+                cls="grid",
+                style="max-width: 480px;",
+            ),
         ),
-        P("Enter your due date to generate a calendar with pregnancy week markers."),
     )
 
 
 @dataclass
 class DueDate:
-    year: int
-    month: int
-    date: int
+    due_date: str  # Will receive date in YYYY-MM-DD format
 
 
 @rt("/generate")
 def post(due: DueDate):
-    due_date = datetime.date(due.year, due.month, due.date)
+    year, month, day = map(int, due.due_date.split("-"))
+
+    due_date = datetime.date(year, month, day)
 
     due_date_event = create_event(
         "Due Date",
