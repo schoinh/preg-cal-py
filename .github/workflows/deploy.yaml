@@ -19,12 +19,12 @@ jobs:
       - name: Install Railway CLI
         run: npm install -g @railway/cli
 
-      - name: Build Docker image
-        run: docker build -t my-app:latest .
+      # - name: Build Docker image
+      #   run: docker build -t my-app:latest .
 
       - name: Deploy to Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
           docker save my-app:latest | gzip > my-app.tar.gz
-          railway up --service=${{ secrets.RAILWAY_SERVICE_ID }} --build-cmd="docker load -i my-app.tar.gz"
+          railway up --service=${{ secrets.RAILWAY_SERVICE_ID }}"
