@@ -1,26 +1,25 @@
 # preg-cal-py
 
-For dev, use a venv:
+Install poetry:
 
 ```
-python -m venv venv
-source venv/bin/activate
+pip install poetry
 ```
 
 Then install dependencies:
 
 ```
-pip install -r requirements.txt
+poetry install
 ```
 
 To run web app:
 
 ```
-python app.py
+poetry run python app.py
 ```
 
 To run CLI:
 
 ```
-python cli.py
+poetry run python cli.py
 ```
