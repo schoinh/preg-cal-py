@@ -1,3 +1,0 @@
-python-fasthtml
-click
-sqlite_minutils

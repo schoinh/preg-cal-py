@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "pregcal-py"
+version = "0.1.0"
+description = "A minimalist pregnancy calendar"
+authors = ["Na Hyung Choi", "Phillip Carter"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+python-fasthtml = "^0.10.2"
+click = "^8.0.1"
+sqlite_minutils = "^4.0.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
