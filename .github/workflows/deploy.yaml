@@ -3,7 +3,7 @@ name: Deploy to Railway
 on:
   push:
     branches:
-      - main  # Adjust if deploying from a different branch
+      - main 
 
 jobs:
   deploy:
@@ -12,9 +12,6 @@ jobs:
     steps:
       - name: Check out the code
         uses: actions/checkout@v3
-
-      # - name: Set up Docker Buildx
-      #   uses: docker/setup-buildx-action@v2
 
       - name: Install Railway CLI
         run: npm install -g @railway/cli
