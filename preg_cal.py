@@ -6,7 +6,7 @@ def format_date(date_object: datetime.date) -> str:
     return date_object.strftime("%Y%m%d")
 
 
-def get_week_bounds(due_date: datetime.date):
+def get_week_bounds(due_date: datetime.date) -> list[tuple[int, str, str]]:
     week_bounds = []
     week_num = 4
     week_start = due_date - datetime.timedelta(days=(7 * 36))
@@ -23,7 +23,7 @@ def get_week_bounds(due_date: datetime.date):
     return week_bounds
 
 
-def get_week_events(week_bounds):
+def get_week_events(week_bounds: list[tuple[int, str, str]]):
     week_events = ""
 
     for week_num, week_start, week_end in week_bounds:
@@ -51,3 +51,31 @@ def create_event(name, start, end):
         "END:VALARM\n"
         "END:VEVENT\n"
     )
+
+
+def create_ical(due_date: datetime.date):
+    header = (
+        "BEGIN:VCALENDAR\n"
+        "CALSCALE:GREGORIAN\n"
+        "PRODID:-//Apple Inc.//macOS 13.2.1//EN\n"
+        "VERSION:2.0\n"
+        "X-APPLE-CALENDAR-COLOR:#CC73E1\n"
+        "X-WR-CALNAME:Preg Cal\n"
+    )
+    footer = "END:VCALENDAR"
+
+    due_date_event = create_event(
+        "Due Date",
+        format_date(due_date),
+        format_date(due_date + datetime.timedelta(days=1)),
+    )
+
+    week_bounds = get_week_bounds(due_date)
+    week_events = get_week_events(week_bounds)
+
+    filename = "preg-cal.ics"
+
+    with open(filename, "w") as file:
+        file.write(header + week_events + due_date_event + footer)
+
+    return filename
