@@ -45,7 +45,7 @@ def get():
 
 @dataclass
 class DueDate:
-    due_date: str  # Will receive date in YYYY-MM-DD format
+    due_date: str  # YYYY-MM-DD format
 
 
 @rt("/generate")
