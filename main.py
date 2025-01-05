@@ -13,22 +13,33 @@ def get():
         "Pregnancy Calendar Generator",
         Container(
             P(
-                "Select your due date to generate a calendar with pregnancy week markers."
+                "Enter your estimated due date to generate a calendar (.ics) file containing week-long events from 4 to 42 weeks."
             ),
+            P(
+                "Import it as a new calendar into your Google Calendar, Apple Calendar, or Outlook, where you can:"
+            ),
+            Ul(
+                Li("View the week numbers alongside all your other life events"),
+                Li("Show/hide the calendar as needed"),
+                Li("Change the name, color, and events as you would with any other calendar layer"),
+            ),
+            P(
+                "It's your file once you've downloaded it. If your due date changes, you can just delete the calendar and generate a new one here."
+            ),
+            Hr(),
             Div(
                 Form(
+                    Label("Estimated Due Date:"),
                     Group(
                         Input(
                             type="date",
                             id="due_date",
                             name="due_date",
-                            min="2024-01-01",
-                            max="2030-12-31",
                             required=True,
                             cls="form-control",
                         ),
                         Button(
-                            "Generate",
+                            "Download",
                             type="submit",
                             cls="primary",
                         ),
@@ -38,6 +49,27 @@ def get():
                 ),
                 cls="grid",
                 style="max-width: 480px;",
+            ),
+            Hr(),
+            H3("How to import the .ics file into your calendar app"),
+            P("Note: The exact steps can vary and change due to updates to calendar applications. If the directions below seem outdated, a quick web search should help you out."),
+            P("Apple Calendar"),
+            Ol(
+                Li("Simply drag and drop the file onto your Calendar app."),
+                Li("When asked for a destination calendar, choose \"New Calendar...\" and give your new calendar a name."),
+            ),
+            Div(
+                Img(src="screenshot.png", width="500px", style="border: 2px solid black; margin-bottom: 2em;"),
+                id="screenshot",
+            ),
+            P("Google Calendar"),
+            Ol(
+                Li("Go to Settings > Add Calendar to create a new calendar."),
+                Li("In Settings > Import & Export > Import, upload the .ics file, select the new calendar you created, and click Import."),
+            ),
+            P("Outlook Calendar"),
+            Ul(
+                Li("The steps may vary based on your operating system (Mac vs. PC) and the platform you're using (web vs. desktop app). A web search is recommended for the most up-to-date information."),
             ),
         ),
     )
