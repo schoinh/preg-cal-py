@@ -17,7 +17,7 @@ poetry install
 To run web app:
 
 ```
-poetry run python app.py
+poetry run python main.py
 ```
 
 To run CLI:
