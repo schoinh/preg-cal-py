@@ -1,6 +1,10 @@
 # preg-cal-py
 
-Currently deployed at: https://fabulous-rebirth-production.up.railway.app/
+Website: https://pregcal.com/
+
+True host is at: https://fabulous-rebirth-production.up.railway.app/
+
+The domain is hosted on Porkbun and redirected through Cloudflare.
 
 Install poetry:
 
