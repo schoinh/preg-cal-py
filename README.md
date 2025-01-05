@@ -1,4 +1,4 @@
-# preg-cal-py
+# pregcal
 
 Website: https://pregcal.com/
 
