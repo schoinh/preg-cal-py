@@ -85,7 +85,8 @@ def generate_events(due_date: datetime.date, event_type: EventType) -> Iterator[
             # Generate an event for each day in the week
             for _ in range(7):
                 next_day = current_date + datetime.timedelta(days=1)
-                yield Event(week_num, current_date, next_day, created_at=created_at)
+                name = f"{week_num}W {next_day.strftime('%b %d')}"
+                yield Event(week_num, current_date, next_day, name=name, created_at=created_at)
                 current_date = next_day
             week_num += 1
 
