@@ -80,6 +80,7 @@ def get():
                                id="day_events", 
                                cls="toggle-button",
                                title="Shows a new event per day of pregnancy on the calendar."),
+                        Input(type="hidden", name="event_type", value="week"),
                         cls="toggle-group"
                     ),
                     Group(
@@ -136,7 +137,7 @@ def post(due: DueDate):
     year, month, day = map(int, due.due_date.split("-"))
 
     due_date = datetime.date(year, month, day)
-    filename = create_ical(due_date, use_days=(due.event_type == "day"))
+    filename = create_ical(due_date, event_type=(due.event_type))
 
     return FileResponse(
         filename,
