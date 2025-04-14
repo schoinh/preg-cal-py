@@ -1,0 +1,60 @@
+#screenshot {
+    border: 2px solid black;
+}
+
+.toggle-group {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.toggle-button {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    border: 2px solid #3498db;
+    border-radius: 6px;
+    padding: 8px 16px;
+    margin: 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    position: relative;
+}
+
+.toggle-button:hover {
+    background-color: #34495e;
+    border-color: #2980b9;
+}
+
+.toggle-button.active {
+    background-color: #3498db;
+    border-color: #2980b9;
+    color: white;
+}
+
+.toggle-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+}
+
+/* Native tooltip styling */
+.toggle-button:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 8px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    pointer-events: none;
+    margin-bottom: 8px;
+    z-index: 1000;
+}

@@ -12,8 +12,34 @@ def get():
     return Titled(
         "Pregnancy Calendar Generator",
         Container(
+            Style("""
+                .tooltip-wrapper {
+                    position: relative;
+                    display: inline-block;
+                }
+                .tooltip-wrapper::after {
+                    content: attr(data-tooltip);
+                    position: absolute;
+                    bottom: 100%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    padding: 4px 8px;
+                    background: #333;
+                    color: white;
+                    border-radius: 4px;
+                    font-size: 14px;
+                    white-space: nowrap;
+                    visibility: hidden;
+                    opacity: 0;
+                    transition: opacity 0.1s;
+                }
+                .tooltip-wrapper:hover::after {
+                    visibility: visible;
+                    opacity: 1;
+                }
+            """),
             P(
-                "Enter your estimated due date to generate a calendar (.ics) file containing week-long events from 4 to 42 weeks."
+                "Enter your estimated due date to generate a calendar (.ics) file containing events from 4 to 42 weeks."
             ),
             P(
                 "Import it as a new calendar into your Google Calendar, Apple Calendar, or Outlook, where you can:"
@@ -38,6 +64,26 @@ def get():
                             required=True,
                             cls="form-control",
                         ),
+                    ),
+                    Div(
+                        Button("Week Events", 
+                               type="button", 
+                               name="event_type", 
+                               value="week", 
+                               id="week_events", 
+                               cls="toggle-button active",
+                               title="Shows only the weeks on the calendar."),
+                        Button("Day Events", 
+                               type="button", 
+                               name="event_type", 
+                               value="day", 
+                               id="day_events", 
+                               cls="toggle-button",
+                               title="Shows a new event per day of pregnancy on the calendar."),
+                        Input(type="hidden", name="event_type", value="week"),
+                        cls="toggle-group"
+                    ),
+                    Group(
                         Button(
                             "Download",
                             type="submit",
@@ -72,12 +118,18 @@ def get():
                 Li("The steps may vary based on your operating system (Mac vs. PC) and the platform you're using (web vs. desktop app). A web search is recommended for the most up-to-date information."),
             ),
         ),
+        Head(
+            Link(rel="stylesheet", href="/static/style.css"),
+            Script(src="/static/script.js"),
+            Title("Pregnancy Calendar Generator"),
+        ),
     )
 
 
 @dataclass
 class DueDate:
     due_date: str  # YYYY-MM-DD format
+    event_type: str  # 'week' or 'day'
 
 
 @rt("/generate")
@@ -85,7 +137,7 @@ def post(due: DueDate):
     year, month, day = map(int, due.due_date.split("-"))
 
     due_date = datetime.date(year, month, day)
-    filename = create_ical(due_date)
+    filename = create_ical(due_date, event_type=(due.event_type))
 
     return FileResponse(
         filename,
