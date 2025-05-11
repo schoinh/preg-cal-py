@@ -1,4 +1,4 @@
-# pregcal
+# Pregnancy Calendar Generator
 
 Website: https://pregcal.com/
 
